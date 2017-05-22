@@ -32,7 +32,7 @@ class Computer
     valid_choices = choices.select {|choice| valid?(board, choice)}
     valid_choices.sample
   end
-  
+
   def subsequent_choices(row, column, delta_dist)
     [[row, column + delta_dist],
     [row, column - delta_dist],

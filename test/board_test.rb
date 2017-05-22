@@ -81,10 +81,20 @@ class BoardTest < Minitest::Test
     coordinates_1 = [1,3]
     coordinates_2 = [6,5]
     coordinates_3 = [11,8]
+    coordinates_4 = [2,0]
+    coordinates_5 = [7,5]
+    coordinates_6 = [9,11]
+
+    new_board_4.ship([coordinates_4])
+    new_board_8.ship([coordinates_5])
+    new_board_12.ship([coordinates_6])
 
     assert new_board_4.empty?(coordinates_1)
     assert new_board_8.empty?(coordinates_2)
     assert new_board_12.empty?(coordinates_3)
+    refute new_board_4.empty?(coordinates_4)
+    refute new_board_8.empty?(coordinates_5)
+    refute new_board_12.empty?(coordinates_6)
   end
 
   def test_ship_sets_coordinate_to_ship_space
@@ -107,5 +117,4 @@ class BoardTest < Minitest::Test
     assert_equal :ship, new_board_12.board[11][8]
     assert_equal :ship, new_board_12.board[10][8]
   end
-
 end

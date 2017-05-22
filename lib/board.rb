@@ -36,7 +36,7 @@ class Board
     coordinates.each do |pair|
       row = pair[0]
       column = pair[1]
-      @board[row][column] = :ship
+      board[row][column] = :ship
     end
   end
 end
