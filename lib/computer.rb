@@ -32,6 +32,13 @@ class Computer
     valid_choices = choices.select {|choice| valid?(board, choice)}
     valid_choices.sample
   end
+  
+  def subsequent_choices(row, column, delta_dist)
+    [[row, column + delta_dist],
+    [row, column - delta_dist],
+    [row + delta_dist, column],
+    [row - delta_dist, column]]
+  end
 
   def middle_coordinates(coordinates, ship_length)
     first_row = coordinates[0][0]
@@ -47,13 +54,6 @@ class Computer
     else
       return [(end_row + 1), end_column]
     end
-  end
-
-  def subsequent_choices(row, column, delta_dist)
-    [[row, column + delta_dist],
-    [row, column - delta_dist],
-    [row + delta_dist, column],
-    [row - delta_dist, column]]
   end
 
   def valid?(board, coordinates)

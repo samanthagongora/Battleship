@@ -44,6 +44,54 @@ class ComputerTest < Minitest::Test
     assert_equal 2, coordinates_3.length
   end
 
+  def test_middle_coordinates_returns_correct_coordinates
+    player_comp = Computer.new
+    new_board_4 = Board.new(4)
+    new_board_8 = Board.new(8)
+    new_board_12 = Board.new(12)
+
+    coordinates_1 = player_comp.middle_coordinates([[1,2],[3,2]], 3)
+    coordinates_2 = player_comp.middle_coordinates([[4,5],[4,7]], 3)
+    coordinates_3 = player_comp.middle_coordinates([[10,9],[10,7]], 3)
+    coordinates_4 = player_comp.middle_coordinates([[1,2],[3,2],[4,2]], 4)
+    coordinates_5 = player_comp.middle_coordinates([[10,9],[10,7],[10,6]], 4)
+    coordinates_6 = player_comp.middle_coordinates([[6,2],[4,2],[3,2],[2,2]], 5)
+
+
+    assert_equal [2,2], coordinates_1
+    assert_equal [4,6], coordinates_2
+    assert_equal [10,8], coordinates_3
+    assert_equal [2,2], coordinates_4
+    assert_equal [10,8], coordinates_5
+    assert_equal [5,2], coordinates_6
+    assert new_board_4.contains?(coordinates_1)
+    assert new_board_8.contains?(coordinates_2)
+    assert new_board_12.contains?(coordinates_3)
+    assert new_board_8.contains?(coordinates_4)
+    assert new_board_12.contains?(coordinates_5)
+    assert new_board_12.contains?(coordinates_6)
+    assert_equal 2, coordinates_1.length
+    assert_equal 2, coordinates_2.length
+    assert_equal 2, coordinates_3.length
+    assert_equal 2, coordinates_4.length
+    assert_equal 2, coordinates_5.length
+    assert_equal 2, coordinates_6.length
+  end
+
+  def test_subsequent_choices_returns_all_four_vertical_and_horizontal_spaces
+    player_comp = Computer.new
+
+    choices_1 = player_comp.subsequent_choices(3,2,1)
+    choices_2 = player_comp.subsequent_choices(3,2,2)
+    choices_3 = player_comp.subsequent_choices(3,2,3)
+    choices_4 = player_comp.subsequent_choices(3,2,4)
+
+    assert_equal  [[3,3],[3,1],[4,2],[2,2]], choices_1
+    assert_equal  [[3,4],[3,0],[5,2],[1,2]], choices_2
+    assert_equal  [[3,5],[3,-1],[6,2],[0,2]], choices_3
+    assert_equal  [[3,6],[3,-2],[7,2],[-1,2]], choices_4
+  end
+
   def test_computer_can_generate_coordinates_for_2_space_ship
     new_board = Board.new(4)
     player_comp = Computer.new
