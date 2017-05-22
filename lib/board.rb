@@ -1,12 +1,13 @@
 require 'pry'
 
 class Board
-  attr_reader :size
+  attr_reader :size, :board
   def initialize(size)
     @size = size
+    @board = play_field
   end
 
-  def board
+  def play_field
     board =[]
     (@size).times { board << Array.new(@size, :empty) }
     board
@@ -23,17 +24,19 @@ class Board
     board[row][column] == :empty
   end
 
-  def hit(coordinates)
-
-  end
-
-  def miss(coordinates)
-
-  end
+  # def hit(coordinates)
+  #
+  # end
+  #
+  # def miss(coordinates)
+  #
+  # end
 
   def ship(coordinates)
-    row = coordinates[0]
-    column = coordinates[1]
-    board[row][column] = 'sh'
+    coordinates.each do |pair|
+      row = pair[0]
+      column = pair[1]
+      @board[row][column] = :ship
+    end
   end
 end
