@@ -19,7 +19,9 @@ class Computer
   end
 
   def first_coordinates(board)
-    [rand(0..board.size - 1), rand(0..board.size - 1)]
+    first_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
+    return first_coordinates if valid?(board, first_coordinates)
+    first_coordinates(board)
   end
 
   def end_coordinates(coordinates, ship_length, board)

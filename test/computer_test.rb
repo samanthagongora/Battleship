@@ -4,6 +4,46 @@ require './lib/computer'
 require 'pry'
 
 class ComputerTest < Minitest::Test
+  def test_first_coordinates_returns_random_coordinates
+    player_comp = Computer.new
+    new_board_4 = Board.new(4)
+    new_board_8 = Board.new(8)
+    new_board_12 = Board.new(12)
+
+    coordinates_1 = player_comp.first_coordinates(new_board_4)
+    coordinates_2 = player_comp.first_coordinates(new_board_8)
+    coordinates_3 = player_comp.first_coordinates(new_board_12)
+
+    assert new_board_4.contains?(coordinates_1)
+    assert new_board_8.contains?(coordinates_2)
+    assert new_board_12.contains?(coordinates_3)
+    assert_equal 2, coordinates_1.length
+    assert_equal 2, coordinates_2.length
+    assert_equal 2, coordinates_3.length
+  end
+
+  def test_end_coordinates_returns_valid_coordinates
+    player_comp = Computer.new
+    new_board_4 = Board.new(4)
+    new_board_8 = Board.new(8)
+    new_board_12 = Board.new(12)
+
+    coordinates_1 = player_comp.end_coordinates([[1,2]], 2, new_board_4)
+    coordinates_2 = player_comp.end_coordinates([[4,5]], 2, new_board_8)
+    coordinates_3 = player_comp.end_coordinates([[10,9]], 2, new_board_12)
+
+
+    assert player_comp.subsequent_choices(1, 2, 1).include? coordinates_1
+    assert player_comp.subsequent_choices(4, 5, 1).include? coordinates_2
+    assert player_comp.subsequent_choices(10, 9, 1).include? coordinates_3
+    assert new_board_4.contains?(coordinates_1)
+    assert new_board_8.contains?(coordinates_2)
+    assert new_board_12.contains?(coordinates_3)
+    assert_equal 2, coordinates_1.length
+    assert_equal 2, coordinates_2.length
+    assert_equal 2, coordinates_3.length
+  end
+
   def test_computer_can_generate_coordinates_for_2_space_ship
     new_board = Board.new(4)
     player_comp = Computer.new
