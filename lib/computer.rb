@@ -4,6 +4,10 @@ require 'pry'
 
 #todo: look up raising an error and catching
 class Computer
+  def place_ship(board, ship_length)
+    board.ship(ship_coordinates(board, ship_length))
+  end
+
   def ship_coordinates(board, ship_length)
     coordinates = []
     coordinates << first_coordinates(board)
@@ -12,10 +16,15 @@ class Computer
       middle_coordinates = middle_coordinates(coordinates, ship_length)
       if valid?(board, middle_coordinates)
         coordinates.insert(1, middle_coordinates(coordinates, ship_length))
-      else ship_coordinates(board, ship_length)
+      else
+        break
       end
     end
-    coordinates
+    if coordinates.length != ship_length
+      ship_coordinates(board, ship_length)
+    else
+      return coordinates
+    end 
   end
 
   def first_coordinates(board)

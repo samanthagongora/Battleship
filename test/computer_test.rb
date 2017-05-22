@@ -155,4 +155,26 @@ class ComputerTest < Minitest::Test
     assert (0..11).to_a.include? coordinates[4][1]
     assert_equal 5, coordinates.length
   end
+
+  def test_computer_can_place_ship_on_given_coordinates
+    player_comp = Computer.new
+    new_board_4 = Board.new(4)
+    new_board_8 = Board.new(8)
+    new_board_12 = Board.new(12)
+
+    place_ship_1 = player_comp.place_ship(new_board_4, 2)
+    place_ship_2 = player_comp.place_ship(new_board_4, 3)
+    place_ship_3 = player_comp.place_ship(new_board_8, 2)
+    place_ship_4 = player_comp.place_ship(new_board_8, 3)
+    place_ship_5 = player_comp.place_ship(new_board_8, 4)
+    place_ship_6 = player_comp.place_ship(new_board_12, 2)
+    place_ship_7 = player_comp.place_ship(new_board_12, 3)
+    place_ship_8 = player_comp.place_ship(new_board_12, 4)
+    # binding.pry
+    place_ship_9 = player_comp.place_ship(new_board_12, 5)
+
+    assert_equal 5, new_board_4.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
+    assert_equal 9, new_board_8.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
+    assert_equal 14, new_board_12.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
+  end
 end
