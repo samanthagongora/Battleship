@@ -1,26 +1,20 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/battleship'
+require './lib/board'
 
 class BattleshipTest < Minitest::Test
   def test_game_has_welcome_message
+    #??
+  end
+
+  def test_game_play_sets_two_ships_for_computer
     new_game = Battleship.new
+    new_game.new_boards(4)
+    new_game.ships
+    new_game.ship_placement
 
-    return_value = new_game.welcome_message
-
-    assert_equal welcome_message, return_value
+    assert_equal 5, @computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
   end
 
-  def test_game_has_instructions
-  end
-
-  def test_game_quits_when_press_q
-  end
-
-  def test_game_commences_when_press_p
-  end 
-
-  def welcome_message
-    "Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
-  end
 end

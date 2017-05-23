@@ -1,6 +1,7 @@
 require './lib/board'
 
 class BoardPrinter
+  
   def initialize(board)
     @board = board
   end
@@ -19,7 +20,3 @@ class BoardPrinter
     formats_board(@board)
   end
 end
-
-new_board = Board.new(4)
-new_print = BoardPrinter.new(new_board)
-new_print.print_board

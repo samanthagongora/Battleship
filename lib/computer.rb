@@ -1,13 +1,8 @@
 require './lib/board'
 require 'pry'
 
-
 #todo: look up raising an error and catching
 class Computer
-  def place_ship(board, ship_length)
-    board.ship(ship_coordinates(board, ship_length))
-  end
-
   def ship_coordinates(board, ship_length)
     coordinates = []
     coordinates << first_coordinates(board)
@@ -24,7 +19,7 @@ class Computer
       ship_coordinates(board, ship_length)
     else
       return coordinates
-    end 
+    end
   end
 
   def first_coordinates(board)
