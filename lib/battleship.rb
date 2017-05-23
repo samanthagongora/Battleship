@@ -24,7 +24,7 @@ class Battleship
   end
 
   def board_and_player_setup
-    puts 'Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?'
+    puts "Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
     input_1 = gets.chomp.downcase
     if input_1 == 'p'
       puts 'Would you like to play (b)eginner, (i)termediate, or (a)dvanced?'
@@ -88,10 +88,11 @@ class Battleship
       place_ship(@player_ship_board, coordinates)
     end
   end
+
   def place_ship(board, coordinates)
     board.ship(coordinates)
   end
 end
 
-new_game = Battleship.new
-new_game.board_and_player_setup
+# new_game = Battleship.new
+# new_game.board_and_player_setup

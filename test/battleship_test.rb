@@ -14,7 +14,7 @@ class BattleshipTest < Minitest::Test
     new_game.ships
     new_game.ship_placement
 
-    assert_equal 5, @computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
+    assert_equal 5, new_game.computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}
   end
 
 end

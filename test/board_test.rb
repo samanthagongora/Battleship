@@ -12,7 +12,7 @@ class BoardTest < Minitest::Test
     [:empty, :empty, :empty, :empty],
     [:empty, :empty, :empty, :empty]]
 
-    assert_equal expected_board, new_board.play_field
+    assert_equal expected_board, new_board.board
   end
 
   def test_medium_board_to_s
@@ -28,7 +28,7 @@ class BoardTest < Minitest::Test
     [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
     [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty]]
 
-    assert_equal expected_board, new_board.play_field
+    assert_equal expected_board, new_board.board
   end
 
   def test_large_board_to_s
@@ -48,7 +48,7 @@ class BoardTest < Minitest::Test
     [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
     [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty]]
 
-    assert_equal expected_board, new_board.play_field
+    assert_equal expected_board, new_board.board
   end
 
   def test_contains_returns_corret_boolean_for_coordinates

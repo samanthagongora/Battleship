@@ -4,13 +4,9 @@ class Board
   attr_reader :size, :board
   def initialize(size)
     @size = size
-    @board = play_field
-  end
-
-  def play_field
-    board =[]
-    (@size).times { board << Array.new(@size, :empty) }
-    board
+    # @board = play_field
+    @board = []
+    @size.times { @board << Array.new(@size, :empty) }
   end
 
   def contains?(coordinates)
@@ -36,7 +32,7 @@ class Board
     coordinates.each do |pair|
       row = pair[0]
       column = pair[1]
-      board[row][column] = :ship
+      @board[row][column] = :ship
     end
   end
 end
