@@ -77,9 +77,9 @@ module Messages
     puts 'Your ship was hit!'
   end
 
-  def computer_sunk_message
+  def computer_sunk_message(ship_size)
     puts "The enemy sunk your #{ship_size}-unit ship!"
-  end 
+  end
 
   def player_win_message(shot_count)
     puts "Congratulations, you won!\nIt took you #{shot_count} shots to sink my battleships."

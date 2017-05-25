@@ -2,15 +2,12 @@ require './lib/board'
 require './lib/player'
 require './lib/computer'
 require './lib/messages'
-require 'pry'
 
 class Battleship
   include Messages
   attr_reader   :player,
                 :computer
-  attr_accessor :player_shot_board,
-                :computer_shot_board,
-                :player_ship_board,
+  attr_accessor :player_ship_board,
                 :computer_ship_board
 
   def initialize
@@ -19,27 +16,31 @@ class Battleship
     @board_printer = BoardPrinter.new
   end
 
-  def board_and_player_setup
-    input_1 = welcome_message.downcase
-    if input_1 == 'p'
-      input_2 = difficulty_message.downcase
-      if input_2 == 'b'
-        new_boards(4)
-        ships
-      elsif input_2 == 'i'
-        new_boards(8)
-        ships
-      elsif input_2 == 'a'
-        new_boards(12)
-        ships
-      end
-      ship_placement
-    elsif input_1 == 'q'
+  def welcome
+    input = welcome_message.downcase
+    if input == 'p'
+      board_and_ship_setup
+    elsif input == 'q'
       exit
-    elsif input_1 == 'i'
+    elsif input == 'i'
       instructions_message
       board_and_player_setup
     end
+  end
+
+  def board_and_ship_setup
+    input = difficulty_message.downcase
+    if input == 'b'
+      new_boards(4)
+      ships(input)
+    elsif input == 'i'
+      new_boards(8)
+      ships(input)
+    elsif input == 'a'
+      new_boards(12)
+      ships(input)
+    end
+    ship_placement
   end
 
   def new_boards(size)
@@ -49,10 +50,10 @@ class Battleship
     @computer_shot_board = Board.new(size)
   end
 
-  def ships
-    @ships = if @player_shot_board.board.size == 4
+  def ships(input)
+    @ships = if input == 'b'
                [2, 3]
-             elsif @player_shot_board.board.size == 8
+             elsif input == 'i'
                [2, 3, 4]
              else
                [2, 3, 4, 5]
@@ -93,8 +94,9 @@ class Battleship
   def game_sequence
     shots = 0
     start_time = Time.now
-    until @player_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero? || @computer_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+    until all_player_ships_sunk
       player_shoot
+      end_game(shots, start_time) if all_computer_ships_sunk
       computer_shoot
       shots += 1
     end
@@ -111,6 +113,10 @@ class Battleship
       player_shot = player_shot_message
       valid_shot = player.convert_to_shot_coordinates(player_shot)
     end
+    player_shot_result(valid_shot)
+  end
+
+  def player_shot_result(valid_shot)
     result = @computer_ship_board.hit_or_miss(valid_shot)
     if result == :miss
       player_miss_message
@@ -119,12 +125,17 @@ class Battleship
     else
       player_sunk_message(result)
     end
+    player_board_banner_message
     @computer_ship_board.print_board(@board_printer)
     continue_message
   end
 
   def computer_shoot
     computer_shot = computer.random_shot_coordinates(player_ship_board)
+    computer_shot_result(computer_shot)
+  end
+
+  def computer_shot_result(computer_shot)
     result = @player_ship_board.hit_or_miss(computer_shot)
     if result == :miss
       computer_miss_message
@@ -139,7 +150,7 @@ class Battleship
   end
 
   def end_game(shots, start_time)
-    if @player_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero?
+    if all_player_ships_sunk
       computer_win_message(shots)
     else
       player_win_message(shots)
@@ -147,7 +158,15 @@ class Battleship
     elapsed_time = (Time.now - start_time).round
     elapsed_time_message(elapsed_time)
   end
+
+  def all_player_ships_sunk
+    @player_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+  end
+
+  def all_computer_ships_sunk
+    @computer_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+  end
 end
 
 new_game = Battleship.new
-new_game.board_and_player_setup
+new_game.welcome

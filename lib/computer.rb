@@ -1,6 +1,5 @@
 require './lib/board'
-require 'pry'
-# TODO: look up raising an error and catching
+
 class Computer
   def initialize
     @shots = []
