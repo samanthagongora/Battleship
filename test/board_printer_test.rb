@@ -9,17 +9,17 @@ class BoardPrinterTest < Minitest::Test
     new_board = Board.new(4)
     new_printer = BoardPrinter.new
     board =
-    <<-BOARD
-       1   2   3   4
+    <<~BOARD
+        1   2   3   4
 
-   A   .   .   .   .
+    A   .   .   .   .
 
-   B   .   .   .   .
+    B   .   .   .   .
 
-   C   .   .   .   .
+    C   .   .   .   .
 
-   D   .   .   .   .
-   BOARD
+    D   .   .   .   .
+    BOARD
 
     expected_board = board.chomp
     actual_board = new_printer.formats_board(new_board)
@@ -32,55 +32,66 @@ class BoardPrinterTest < Minitest::Test
     new_printer = BoardPrinter.new
 
     board =
-    <<-BOARD
-       1   2   3   4   5   6   7   8
+    <<~BOARD
+        1   2   3   4   5   6   7   8
 
-   A   .   .   .   .   .   .   .   .
+    A   .   .   .   .   .   .   .   .
 
-   B   .   .   .   .   .   .   .   .
+    B   .   .   .   .   .   .   .   .
 
-   C   .   .   .   .   .   .   .   .
+    C   .   .   .   .   .   .   .   .
 
-   D   .   .   .   .   .   .   .   .
+    D   .   .   .   .   .   .   .   .
 
-   E   .   .   .   .   .   .   .   .
+    E   .   .   .   .   .   .   .   .
 
-   F   .   .   .   .   .   .   .   .
+    F   .   .   .   .   .   .   .   .
 
-   G   .   .   .   .   .   .   .   .
+    G   .   .   .   .   .   .   .   .
 
-   H   .   .   .   .   .   .   .   .
+    H   .   .   .   .   .   .   .   .
     BOARD
 
     expected_board = board.chomp
     actual_board = new_printer.formats_board(new_board)
-
     assert_equal expected_board, actual_board
   end
 
   def test_large_board_to_s
-    skip
     new_printer = BoardPrinter.new
     new_board = Board.new(12)
     board =
     <<~BOARD
-         1  2  3  4  5  6  7  8  9 10 11 12
-      A   .   .   .   .   .   .   .   .   .   .   .   .
-      B   .   .   .   .   .   .   .   .   .   .   .   .
-      C   .   .   .   .   .   .   .   .   .   .   .   .
-      D   .   .   .   .   .   .   .   .   .   .   .   .
-      E   .   .   .   .   .   .   .   .   .   .   .   .
-      F   .   .   .   .   .   .   .   .   .   .   .   .
-      G   .   .   .   .   .   .   .   .   .   .   .   .
-      H   .   .   .   .   .   .   .   .   .   .   .   .
-      I   .   .   .   .   .   .   .   .   .   .   .   .
-      J   .   .   .   .   .   .   .   .   .   .   .   .
-      K   .   .   .   .   .   .   .   .   .   .   .   .
-      L   .   .   .   .   .   .   .   .   .   .   .   .
-    BOARD
+         1   2   3   4   5   6   7   8   9  10  11  12
+
+     A   .   .   .   .   .   .   .   .   .   .   .   .
+
+     B   .   .   .   .   .   .   .   .   .   .   .   .
+
+     C   .   .   .   .   .   .   .   .   .   .   .   .
+
+     D   .   .   .   .   .   .   .   .   .   .   .   .
+
+     E   .   .   .   .   .   .   .   .   .   .   .   .
+
+     F   .   .   .   .   .   .   .   .   .   .   .   .
+
+     G   .   .   .   .   .   .   .   .   .   .   .   .
+
+     H   .   .   .   .   .   .   .   .   .   .   .   .
+
+     I   .   .   .   .   .   .   .   .   .   .   .   .
+
+     J   .   .   .   .   .   .   .   .   .   .   .   .
+
+     K   .   .   .   .   .   .   .   .   .   .   .   .
+
+     L   .   .   .   .   .   .   .   .   .   .   .   .
+     BOARD
 
     expected_board = board.chomp
-
-    assert_equal expected_board, new_printer.formats_board(new_board)
+    actual_board = new_printer.formats_board(new_board)
+    # binding.pry
+    assert_equal expected_board, actual_board
   end
 end

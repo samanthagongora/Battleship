@@ -1,11 +1,12 @@
 module Messages
-  
+
   def welcome_message
     output =
     <<~OUTPUT
     Welcome to BATTLESHIP\n
     Would you like to (p)lay, read the (i)nstructions, or (q)uit?
     OUTPUT
+    puts output
     gets.chomp
   end
 

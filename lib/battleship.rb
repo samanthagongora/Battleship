@@ -24,7 +24,7 @@ class Battleship
       exit
     elsif input == 'i'
       instructions_message
-      board_and_player_setup
+      welcome
     end
   end
 
@@ -63,6 +63,7 @@ class Battleship
   def ship_placement
     computer_place_ships
     computer_ship_placement_message
+    @player_ship_board.print_board(@board_printer)
     player_place_ships
     game_sequence
   end
