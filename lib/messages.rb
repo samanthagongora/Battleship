@@ -1,16 +1,16 @@
 module Messages
   def welcome_message
     puts "Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    return gets.chomp
+    gets.chomp
   end
 
   def difficulty_message
     puts 'Would you like to play (b)eginner, (i)termediate, or (a)dvanced?'
-    return gets.chomp
+    gets.chomp
   end
 
   def instructions
-    puts "instructions here"
+    puts 'instructions here'
   end
 
   def computer_ship_placement_message
@@ -23,20 +23,20 @@ module Messages
 
   def gets_player_ship_placement_message(ship_length)
     puts "Please enter the coordinates for the #{ship_length}-unit ship"
-    return gets.chomp
+    gets.chomp
   end
 
   def player_shot_message
-    puts "Please enter a coordinate to fire ze missle"
-    return gets.chomp
+    puts 'Please enter a coordinate to fire ze missle'
+    gets.chomp
   end
 
   def player_hit_message
-    puts "You hit an enemy ship!"
+    puts 'You hit an enemy ship!'
   end
 
   def player_miss_message
-    puts "You missed!"
+    puts 'You missed!'
   end
 
   def continue_message
@@ -45,11 +45,11 @@ module Messages
   end
 
   def computer_miss_message
-    puts "Your ships are safe...for now."
+    puts 'Your ships are safe...for now.'
   end
 
   def computer_hit_message
-    puts "Your ship was hit!"
+    puts 'Your ship was hit!'
   end
 
   def player_win_message(shot_count)

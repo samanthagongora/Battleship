@@ -15,13 +15,13 @@ class BoardPrinter
 
   def line_converter(line)
     line.map do |el|
-      if el == :empty || el == :ship
-        el = '   .'
-      elsif el == :hit
-        el = '   H'
-      else
-        el = '   M'
-      end
+      el = if el == :empty || el == :ship
+             '   .'
+           elsif el == :hit
+             '   H'
+           else
+             '   M'
+           end
     end
   end
 end

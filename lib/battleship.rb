@@ -4,13 +4,6 @@ require './lib/computer'
 require './lib/messages'
 require 'pry'
 
-# class BattleShipLoader
-#   def get_settings
-#   puts 'what difficulty?'
-#   game = Battleship.new(size: 4) # size based on difficulty
-#   game.run_game
-# end
-
 class Battleship
   include Messages
   attr_reader   :player,
@@ -30,22 +23,22 @@ class Battleship
     input_1 = welcome_message.downcase
     if input_1 == 'p'
       input_2 = difficulty_message.downcase
-        if input_2 == 'b'
-          new_boards(4)
-          ships
-        elsif input_2 == 'i'
-          new_boards(8)
-          ships
-        elsif input_2 == 'a'
-          new_boards(12)
-          ships
-        end
+      if input_2 == 'b'
+        new_boards(4)
+        ships
+      elsif input_2 == 'i'
+        new_boards(8)
+        ships
+      elsif input_2 == 'a'
+        new_boards(12)
+        ships
+      end
       ship_placement
     elsif input_1 == 'q'
       exit
     elsif input_1 == 'i'
       instructions
-    #todo: guard clause for invalid entry
+      # TODO: guard clause for invalid entry
     end
   end
 
@@ -57,13 +50,13 @@ class Battleship
   end
 
   def ships
-    if @player_shot_board.board.size == 4
-      @ships = [2, 3]
-    elsif @player_shot_board.board.size == 8
-      @ships = [2,3,4]
-    else
-      @ships = [2,3,4,5]
-    end
+    @ships = if @player_shot_board.board.size == 4
+               [2, 3]
+             elsif @player_shot_board.board.size == 8
+               [2, 3, 4]
+             else
+               [2, 3, 4, 5]
+             end
   end
 
   def ship_placement
@@ -95,7 +88,7 @@ class Battleship
   def game_sequence
     shots = 0
     start_time = Time.now
-    until @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero? || @computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
+    until @player_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero? || @computer_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero?
       player_shoot
       computer_shoot
       shots += 1
@@ -129,7 +122,7 @@ class Battleship
   end
 
   def end_game(shots, start_time)
-    if @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
+    if @player_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero?
       player_lose_message(shots)
     else
       player_win_message(shots)

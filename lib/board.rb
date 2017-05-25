@@ -24,7 +24,7 @@ class Board
     @board[row][column] == :empty
   end
 
-  def hit_or_miss(board, coordinates)
+  def hit_or_miss(_board, coordinates)
     row = coordinates[0]
     column = coordinates[1]
     if empty?(coordinates)

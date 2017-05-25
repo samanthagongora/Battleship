@@ -7,10 +7,10 @@ class BoardTest < Minitest::Test
     new_board = Board.new(4)
 
     expected_board =
-    [[:empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty]]
+      [%i[empty empty empty empty],
+       %i[empty empty empty empty],
+       %i[empty empty empty empty],
+       %i[empty empty empty empty]]
 
     assert_equal expected_board, new_board.board
   end
@@ -19,14 +19,14 @@ class BoardTest < Minitest::Test
     new_board = Board.new(8)
 
     expected_board =
-    [[:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty]]
+      [%i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty]]
 
     assert_equal expected_board, new_board.board
   end
@@ -35,18 +35,18 @@ class BoardTest < Minitest::Test
     new_board = Board.new(12)
 
     expected_board =
-    [[:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty],
-    [:empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty, :empty]]
+      [%i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty],
+       %i[empty empty empty empty empty empty empty empty empty empty empty empty]]
 
     assert_equal expected_board, new_board.board
   end
@@ -56,14 +56,14 @@ class BoardTest < Minitest::Test
     new_board_8  = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = [1,3]
-    coordinates_2 = [5,0]
+    coordinates_1 = [1, 3]
+    coordinates_2 = [5, 0]
 
-    coordinates_3 = [6,5]
-    coordinates_4 = [10,6]
+    coordinates_3 = [6, 5]
+    coordinates_4 = [10, 6]
 
-    coordinates_5 = [11,8]
-    coordinates_6 = [13,11]
+    coordinates_5 = [11, 8]
+    coordinates_6 = [13, 11]
 
     assert new_board_4.contains?(coordinates_1)
     refute new_board_4.contains?(coordinates_2)
@@ -78,12 +78,12 @@ class BoardTest < Minitest::Test
     new_board_8  = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = [1,3]
-    coordinates_2 = [6,5]
-    coordinates_3 = [11,8]
-    coordinates_4 = [2,0]
-    coordinates_5 = [7,5]
-    coordinates_6 = [9,11]
+    coordinates_1 = [1, 3]
+    coordinates_2 = [6, 5]
+    coordinates_3 = [11, 8]
+    coordinates_4 = [2, 0]
+    coordinates_5 = [7, 5]
+    coordinates_6 = [9, 11]
 
     new_board_4.ship([coordinates_4])
     new_board_8.ship([coordinates_5])
@@ -102,9 +102,9 @@ class BoardTest < Minitest::Test
     new_board_8  = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = [[1,3],[1,2]]
-    coordinates_2 = [[6,5],[7,5]]
-    coordinates_3 = [[11,8],[10,8]]
+    coordinates_1 = [[1, 3], [1, 2]]
+    coordinates_2 = [[6, 5], [7, 5]]
+    coordinates_3 = [[11, 8], [10, 8]]
 
     new_board_4.ship(coordinates_1)
     new_board_8.ship(coordinates_2)

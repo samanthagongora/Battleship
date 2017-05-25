@@ -1,6 +1,6 @@
 require './lib/board'
 require 'pry'
-#todo: look up raising an error and catching
+# TODO: look up raising an error and catching
 class Computer
   def ship_coordinates(board, ship_length)
     coordinates = []
@@ -36,18 +36,18 @@ class Computer
     column = coordinates[0][1]
     delta_dist = ship_length - 1
     choices = subsequent_choices(row, column, delta_dist)
-    valid_choices = choices.select {|choice| valid_ship_coordinate?(board, choice)}
+    valid_choices = choices.select { |choice| valid_ship_coordinate?(board, choice) }
     valid_choices.sample
   end
 
   def subsequent_choices(row, column, delta_dist)
     [[row, column + delta_dist],
-    [row, column - delta_dist],
-    [row + delta_dist, column],
-    [row - delta_dist, column]]
+     [row, column - delta_dist],
+     [row + delta_dist, column],
+     [row - delta_dist, column]]
   end
 
-  def middle_coordinates(coordinates, ship_length)
+  def middle_coordinates(coordinates, _ship_length)
     first_row = coordinates[0][0]
     first_column = coordinates[0][1]
     end_column = coordinates[1][1]
@@ -63,13 +63,11 @@ class Computer
     end
   end
 
-
-
   def valid_ship_coordinate?(board, coordinates)
     board.contains?(coordinates) && board.empty?(coordinates)
   end
 
   def valid_shot_coordinate?(board, coordinates)
-   #todo: make sure not previous shot
+    # TODO: make sure not previous shot
   end
 end
