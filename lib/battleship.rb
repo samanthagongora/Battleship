@@ -160,11 +160,11 @@ class Battleship
   end
 
   def all_player_ships_sunk
-    @player_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+    @player_ship_board.board.flatten.count { |s| s.class == Integer }.zero?
   end
 
   def all_computer_ships_sunk
-    @computer_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+    @computer_ship_board.board.flatten.count { |s| s.class == Integer }.zero?
   end
 end
 

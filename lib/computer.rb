@@ -69,7 +69,7 @@ class Computer
     random_shot_coordinates(board)
   end
 
-  def valid_shot_coordinate?(board, coordinates)
+  def valid_shot_coordinate?(_board, coordinates)
     return false if @shots.include?(coordinates)
     @shots << coordinates
   end

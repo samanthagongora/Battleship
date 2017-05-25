@@ -118,22 +118,21 @@ class BoardTest < Minitest::Test
     assert_equal 2, new_board_12.board[10][8]
   end
 
-  def hit_or_miss_returns_correct_message
-    new_board_4  = Board.new(4)
+  def test_hit_or_miss_returns_correct_message
+    new_board_4 = Board.new(4)
 
     coordinates_1 = [[1, 3], [1, 2]]
 
     new_board_4.ship(coordinates_1, 2)
 
-    actual_1 = new_board.hit_or_miss([0,1])
-    actual_2 = new_board.hit_or_miss([1,3])
+    actual_1 = new_board_4.hit_or_miss([0, 1])
+    actual_2 = new_board_4.hit_or_miss([1, 3])
 
     assert_equal :miss, actual_1
     assert_equal :hit, actual_2
 
-    actual_3 = new_board_4.hit_or_miss([1,2])
+    actual_3 = new_board_4.hit_or_miss([1, 2])
 
     assert_equal 2, actual_3
   end
-
 end

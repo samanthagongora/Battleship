@@ -1,4 +1,5 @@
 module Messages
+  
   def welcome_message
     output =
     <<~OUTPUT

@@ -1,13 +1,12 @@
-require 'pry'
 require './lib/messages'
 require './lib/board_printer'
 
 class Board
   include Messages
   attr_reader :size, :board
+
   def initialize(size)
     @size = size
-    # @board = play_field
     @board = []
     @size.times { @board << Array.new(@size, :empty) }
     @board_printer = BoardPrinter.new
@@ -21,6 +20,7 @@ class Board
   def empty?(coordinates)
     row = coordinates.flatten[0]
     column = coordinates.flatten[1]
+
     @board[row][column] == :empty
   end
 
@@ -28,6 +28,7 @@ class Board
     row = coordinates.flatten[0]
     column = coordinates.flatten[1]
     ship_size = @board[row][column]
+
     if empty?(coordinates)
       @board[row][column] = :miss
       return :miss
