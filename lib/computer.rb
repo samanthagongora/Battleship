@@ -4,11 +4,11 @@ require 'pry'
 class Computer
   def ship_coordinates(board, ship_length)
     coordinates = []
-    coordinates << random_coordinates(board)
+    coordinates << random_ship_coordinates(board)
     coordinates << end_coordinates(coordinates, ship_length, board)
     until coordinates.length == ship_length
       middle_coordinates = middle_coordinates(coordinates, ship_length)
-      if valid?(board, middle_coordinates)
+      if valid_ship_coordinate?(board, middle_coordinates)
         coordinates.insert(1, middle_coordinates(coordinates, ship_length))
       else
         break
@@ -23,8 +23,12 @@ class Computer
 
   def random_coordinates(board)
     random_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
-    return random_coordinates if valid?(board, random_coordinates)
-    random_coordinates(board)
+  end
+
+  def random_ship_coordinates(board)
+    first_coordinates = random_coordinates(board)
+    return first_coordinates if valid_ship_coordinate?(board, first_coordinates)
+    random_ship_coordinates(board)
   end
 
   def end_coordinates(coordinates, ship_length, board)
@@ -32,7 +36,7 @@ class Computer
     column = coordinates[0][1]
     delta_dist = ship_length - 1
     choices = subsequent_choices(row, column, delta_dist)
-    valid_choices = choices.select {|choice| valid?(board, choice)}
+    valid_choices = choices.select {|choice| valid_ship_coordinate?(board, choice)}
     valid_choices.sample
   end
 
@@ -59,7 +63,11 @@ class Computer
     end
   end
 
-  def valid?(board, coordinates)
+  def valid_ship_coordinate?(board, coordinates)
     board.contains?(coordinates) && board.empty?(coordinates)
+  end
+
+  def valid_shot_coordinate?(board, coordinates)
+    board.contains?(coordinates)
   end
 end

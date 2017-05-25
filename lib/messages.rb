@@ -31,12 +31,20 @@ module Messages
     return gets.chomp
   end
 
-  def hit_message
+  def player_hit_message
     puts "You hit an enemy ship!"
   end
 
-  def miss_message
+  def player_miss_message
     puts "You missed!"
+  end
+
+  def computer_miss_message
+    puts "Your ships are safe...for now."
+  end
+
+  def computer_hit_message
+    puts "Your ship was hit!"
   end
 
   def player_win_message(shot_count)
@@ -46,4 +54,8 @@ module Messages
   def computer_win_message(shot_count)
     puts "Better luck next time, nerd. It took me #{shot_count} shots to sink your battleships."
   end
+
+  def elapsed_time_message(elapsed_time)
+    puts "Total elapsed time: #{elapsed_time}"
+  end 
 end

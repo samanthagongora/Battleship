@@ -29,10 +29,10 @@ class Board
     column = coordinates[1]
     if empty?(coordinates)
       @board[row][column] = :miss
-      return miss_message
+      return :miss
     else
       @board[row][column] = :hit
-      return hit_message
+      return :hit
     end
   end
 

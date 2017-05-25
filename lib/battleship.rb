@@ -94,34 +94,47 @@ class Battleship
 
   def game_sequence
     shots = 0
+    start_time = Time.now
     until @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero? || @computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
       player_shoot
       computer_shoot
       shots += 1
     end
-    end_game(shots)
+    end_game(shots, start_time)
   end
 
   def player_shoot
     @computer_ship_board.print_board(@board_printer)
     player_shot = player_shot_message
     valid_shot = player.convert_to_coordinates(player_shot).flatten
-    @computer_ship_board.hit_or_miss(computer_ship_board, valid_shot)
+    result = @computer_ship_board.hit_or_miss(computer_ship_board, valid_shot)
+    if result == :miss
+      player_miss_message
+    else
+      player_hit_message
+    end
     @computer_ship_board.print_board(@board_printer)
   end
 
   def computer_shoot
     computer_shot = computer.random_coordinates(player_ship_board)
-    @player_ship_board.hit_or_miss(player_ship_board, computer_shot)
+    result = @player_ship_board.hit_or_miss(player_ship_board, computer_shot)
+    if result == :miss
+      computer_miss_message
+    else
+      computer_hit_message
+    end
     @player_ship_board.print_board(@board_printer)
   end
 
-  def end_game(shots)
+  def end_game(shots, start_time)
     if @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
       player_lose_message(shots)
     else
       player_win_message(shots)
     end
+    elapsed_time = Time.now - start_time
+    elapsed_time_message(elapsed_time)
   end
 end
 

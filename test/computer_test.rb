@@ -4,15 +4,15 @@ require './lib/computer'
 require 'pry'
 
 class ComputerTest < Minitest::Test
-  def test_random_coordinates_returns_random_coordinates
+  def test_random_ship_coordinates_returns_random_ship_coordinates
     player_comp = Computer.new
     new_board_4 = Board.new(4)
     new_board_8 = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = player_comp.random_coordinates(new_board_4)
-    coordinates_2 = player_comp.random_coordinates(new_board_8)
-    coordinates_3 = player_comp.random_coordinates(new_board_12)
+    coordinates_1 = player_comp.random_ship_coordinates(new_board_4)
+    coordinates_2 = player_comp.random_ship_coordinates(new_board_8)
+    coordinates_3 = player_comp.random_ship_coordinates(new_board_12)
 
     assert new_board_4.contains?(coordinates_1)
     assert new_board_8.contains?(coordinates_2)
