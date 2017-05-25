@@ -1,12 +1,16 @@
 require 'pry'
+require './lib/messages'
+require './lib/board_printer'
 
 class Board
+  include Messages
   attr_reader :size, :board
   def initialize(size)
     @size = size
     # @board = play_field
     @board = []
     @size.times { @board << Array.new(@size, :empty) }
+    @board_printer = BoardPrinter.new
   end
 
   def contains?(coordinates)
@@ -20,13 +24,17 @@ class Board
     board[row][column] == :empty
   end
 
-  # def hit(coordinates)
-  #
-  # end
-  #
-  # def miss(coordinates)
-  #
-  # end
+  def hit_or_miss(board, coordinates)
+    row = coordinates[0]
+    column = coordinates[1]
+    if empty?(coordinates)
+      @board[row][column] = :miss
+      return miss_message
+    else
+      @board[row][column] = :hit
+      return hit_message
+    end
+  end
 
   def ship(coordinates)
     coordinates.each do |pair|
@@ -34,5 +42,9 @@ class Board
       column = pair[1]
       @board[row][column] = :ship
     end
+  end
+
+  def print_board(board_printer)
+    puts board_printer.formats_board(self)
   end
 end

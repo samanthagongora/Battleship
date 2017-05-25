@@ -18,22 +18,44 @@ class Player
                  }
   end
 
-  def ship_coordinates(board, ship_length)
-    puts "Please enter the coordinates for the #{ship_length}-unit ship"
-    input = gets.chomp.downcase
-    return convert_to_coordinates(input, ship_length)
-  end
-
-  def convert_to_coordinates(input, ship_length)
-    stripped = input.delete(' ')
-    units = stripped.split('')
+  def convert_to_coordinates(input)
+    stripped_downcased = input.delete(' ').downcase
+    units = stripped_downcased.split('')
     coordinates = []
 
     units.each_with_index do |el, i|
       if i.odd?
-        coordinates << [@convertor[units[i - 1]], el.to_i]
+        coordinates << [@convertor[units[i - 1]], (el.to_i - 1)]
       end
     end
     coordinates
   end
+
+  # def valid?(board, coordinates)
+  #   coordinates.each do |pair|
+  #     if !board.contains?(coordinates)
+  #       return 'That location does not exist'
+  #     elsif !board.empty?(coordinates)
+  #       return 'Your move conflicts with another ship'
+  #     end
+  #   end
+  # end
+
+  # def sequential?(coordinates)
+  #   comparison = {}
+  #   coordinates.each do |pair|
+  #     if comparison[pair[0]].nil?
+  #       comparison[pair[0]] = []
+  #     end
+  #     comparison[pair[0]] << pair[1]
+  #   end
+  #
+  #   if comparison.keys.length == 1
+  #     values = comparison.values.sort
+  #     return values.all?.with_index { |v, i| v + 1 == values[i + 1] }
+  #   else
+  #     keys = comparison.keys.sort
+  #     return keys.all?.with_index { |k, i| k + 1 == keys[i + 1]}
+  #   end
+  # end
 end

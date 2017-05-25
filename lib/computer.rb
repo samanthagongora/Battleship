@@ -1,11 +1,10 @@
 require './lib/board'
 require 'pry'
-
 #todo: look up raising an error and catching
 class Computer
   def ship_coordinates(board, ship_length)
     coordinates = []
-    coordinates << first_coordinates(board)
+    coordinates << random_coordinates(board)
     coordinates << end_coordinates(coordinates, ship_length, board)
     until coordinates.length == ship_length
       middle_coordinates = middle_coordinates(coordinates, ship_length)
@@ -22,10 +21,10 @@ class Computer
     end
   end
 
-  def first_coordinates(board)
-    first_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
-    return first_coordinates if valid?(board, first_coordinates)
-    first_coordinates(board)
+  def random_coordinates(board)
+    random_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
+    return random_coordinates if valid?(board, random_coordinates)
+    random_coordinates(board)
   end
 
   def end_coordinates(coordinates, ship_length, board)

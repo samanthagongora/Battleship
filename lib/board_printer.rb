@@ -1,22 +1,27 @@
 require './lib/board'
 
 class BoardPrinter
-  
-  def initialize(board)
-    @board = board
-  end
-
   def formats_board(board)
-    puts alpha = ('A'..'Z').to_a
+    alpha = ('A'..'Z').to_a
     formatted_board = []
-    @board.each_with_index do |i, line|
-      formatted_board << (1..@board.length).to_a if i == 0
-      formatted_board << alpha[i] + line
+    board.board.each_with_index do |line, i|
+      if i.zero?
+        formatted_board << ['       '] + [(1..board.size).to_a.join('   ')]
+      end
+      formatted_board << ["\n\n   "] + [alpha[i]] + line_converter(line)
     end
-    formatted_board
+    formatted_board.join.rstrip
   end
 
-  def print_board
-    formats_board(@board)
+  def line_converter(line)
+    line.map do |el|
+      if el == :empty || el == :ship
+        el = '   .'
+      elsif el == :hit
+        el = '   H'
+      else
+        el = '   M'
+      end
+    end
   end
 end

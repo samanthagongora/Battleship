@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/player'
 require './lib/computer'
+require './lib/messages'
 require 'pry'
 
 # class BattleShipLoader
@@ -11,6 +12,7 @@ require 'pry'
 # end
 
 class Battleship
+  include Messages
   attr_reader   :player,
                 :computer
   attr_accessor :player_shot_board,
@@ -21,14 +23,13 @@ class Battleship
   def initialize
     @player = Player.new
     @computer = Computer.new
+    @board_printer = BoardPrinter.new
   end
 
   def board_and_player_setup
-    puts "Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    input_1 = gets.chomp.downcase
+    input_1 = welcome_message.downcase
     if input_1 == 'p'
-      puts 'Would you like to play (b)eginner, (i)termediate, or (a)dvanced?'
-      input_2 = gets.chomp.downcase
+      input_2 = difficulty_message.downcase
         if input_2 == 'b'
           new_boards(4)
           ships
@@ -43,7 +44,7 @@ class Battleship
     elsif input_1 == 'q'
       exit
     elsif input_1 == 'i'
-      puts 'instructions here'
+      instructions
     #todo: guard clause for invalid entry
     end
   end
@@ -66,33 +67,63 @@ class Battleship
   end
 
   def ship_placement
-    computer_place_ships(@ships, @computer_ship_board)
-    puts "I have laid out my ships on the grid.
-    You now need to layout your two ships.
-    The first is two units long and the
-    second is three units long.
-    The grid has A1 at the top left and D4 at the bottom right."
-    player_place_ships(@ships, @player_ship_board)
+    computer_place_ships
+    computer_ship_placement_message
+    player_place_ships
+    game_sequence
   end
 
-  def computer_place_ships(ships, computer_ship_board)
+  def computer_place_ships
     @ships.each do |n|
       coordinates = computer.ship_coordinates(@computer_ship_board, n)
       place_ship(@computer_ship_board, coordinates)
     end
   end
 
-  def player_place_ships(ships, player_ship_board)
+  def player_place_ships
     @ships.each do |n|
-      coordinates = player.ship_coordinates(@player_ship_board, n)
-      place_ship(@player_ship_board, coordinates)
+      coordinates = gets_player_ship_placement_message(n)
+      valid_coordinates = player.convert_to_coordinates(coordinates)
+      place_ship(@player_ship_board, valid_coordinates)
     end
   end
 
   def place_ship(board, coordinates)
     board.ship(coordinates)
   end
+
+  def game_sequence
+    shots = 0
+    until @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero? || @computer_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
+      player_shoot
+      computer_shoot
+      shots += 1
+    end
+    end_game(shots)
+  end
+
+  def player_shoot
+    @computer_ship_board.print_board(@board_printer)
+    player_shot = player_shot_message
+    valid_shot = player.convert_to_coordinates(player_shot).flatten
+    @computer_ship_board.hit_or_miss(computer_ship_board, valid_shot)
+    @computer_ship_board.print_board(@board_printer)
+  end
+
+  def computer_shoot
+    computer_shot = computer.random_coordinates(player_ship_board)
+    @player_ship_board.hit_or_miss(player_ship_board, computer_shot)
+    @player_ship_board.print_board(@board_printer)
+  end
+
+  def end_game(shots)
+    if @player_ship_board.board.reduce(0) {|acc, line| acc += line.count { |space| space == :ship }}.zero?
+      player_lose_message(shots)
+    else
+      player_win_message(shots)
+    end
+  end
 end
 
-# new_game = Battleship.new
-# new_game.board_and_player_setup
+new_game = Battleship.new
+new_game.board_and_player_setup
