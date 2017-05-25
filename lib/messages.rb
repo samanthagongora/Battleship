@@ -27,6 +27,10 @@ module Messages
     gets.chomp
   end
 
+  def invalid_ship_placement_message
+    puts 'Invalid ship coordinates.'
+  end
+
   def player_board_banner_message
     puts 'Your battlefield:'
   end

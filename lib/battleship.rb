@@ -78,6 +78,7 @@ class Battleship
       coordinates = gets_player_ship_placement_message(n)
       valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
       until valid_coordinates
+        invalid_ship_placement_message
         coordinates = gets_player_ship_placement_message(n)
         valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
       end
@@ -121,7 +122,7 @@ class Battleship
   end
 
   def computer_shoot
-    computer_shot = computer.random_coordinates(player_ship_board)
+    computer_shot = computer.random_shot_coordinates(player_ship_board)
     result = @player_ship_board.hit_or_miss(computer_shot)
     if result == :miss
       computer_miss_message
@@ -135,7 +136,7 @@ class Battleship
 
   def end_game(shots, start_time)
     if @player_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero?
-      player_lose_message(shots)
+      computer_win_message(shots)
     else
       player_win_message(shots)
     end

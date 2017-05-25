@@ -2,6 +2,10 @@ require './lib/board'
 require 'pry'
 # TODO: look up raising an error and catching
 class Computer
+  def initialize
+    @shots = []
+  end
+
   def ship_coordinates(board, ship_length)
     coordinates = []
     coordinates << random_ship_coordinates(board)
@@ -67,7 +71,14 @@ class Computer
     board.contains?(coordinates) && board.empty?(coordinates)
   end
 
+  def random_shot_coordinates(board)
+    shot_coordinate = random_coordinates(board)
+    return shot_coordinate if valid_shot_coordinate?(board, shot_coordinate)
+    random_shot_coordinates(board)
+  end
+
   def valid_shot_coordinate?(board, coordinates)
-    # TODO: make sure not previous shot
+    return false if @shots.include?(coordinates)
+    @shots << coordinates
   end
 end
