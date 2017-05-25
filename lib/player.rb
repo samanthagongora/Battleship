@@ -55,7 +55,7 @@ class Player
 
     units.each_with_index do |unit, i|
       if i.even?
-        return false if !alpha.include?(unit)
+        return false unless alpha.include?(unit)
       else
         return false if unit.to_i.zero?
       end

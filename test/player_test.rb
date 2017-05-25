@@ -7,9 +7,9 @@ require 'pry'
 class PlayerTest < Minitest::Test
   def test_convert_to_ship_coordinates_returns_false_for_invalid_input
     player = Player.new
-    actual_1 = player.convert_to_ship_coordinates('',2)
-    actual_2 = player.convert_to_ship_coordinates('12832',2)
-    actual_3 = player.convert_to_ship_coordinates('DADSI',3)
+    actual_1 = player.convert_to_ship_coordinates('', 2)
+    actual_2 = player.convert_to_ship_coordinates('12832', 2)
+    actual_3 = player.convert_to_ship_coordinates('DADSI', 3)
     actual_4 = player.convert_to_ship_coordinates('A1 A2 A3 A4 A', 5)
     actual_5 = player.convert_to_ship_coordinates('1 A2 A3 A4 A5', 4)
     actual_6 = player.convert_to_ship_coordinates('A1 A2 AA A4 A5', 5)

@@ -9,8 +9,9 @@ module Messages
     gets.chomp
   end
 
-  def instructions
-    puts 'instructions here'
+  def instructions_message
+    puts "The object of the game is to be the first to sink your opponents ships. First, you will place your ships on the battlefield. Players will take turns firing missles by calling coordinates.\n Press enter to return to the home screen."
+    gets.chomp
   end
 
   def computer_ship_placement_message
@@ -33,10 +34,18 @@ module Messages
   def computer_board_banner_message
     puts "Computer's battlefield:"
   end
-  
+
+  def new_line_message
+    puts "\n"
+  end
+
   def player_shot_message
-    puts 'Please enter a coordinate to fire ze missle'
+    puts 'Please enter a coordinate to fire ze missle:'
     gets.chomp
+  end
+
+  def invalid_shot_message
+    puts 'You must enter a unique coordinate contained by the board.'
   end
 
   def player_hit_message

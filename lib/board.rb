@@ -36,12 +36,11 @@ class Board
     end
   end
 
-  def ship(coordinates)
+  def ship(coordinates, ship_length)
     coordinates.each do |pair|
       row = pair[0]
       column = pair[1]
-      # binding.pry
-      @board[row][column] = :ship
+      @board[row][column] = ship_length
     end
   end
 

@@ -37,8 +37,8 @@ class Battleship
     elsif input_1 == 'q'
       exit
     elsif input_1 == 'i'
-      instructions
-      # TODO: guard clause for invalid entry
+      instructions_message
+      board_and_player_setup
     end
   end
 
@@ -69,7 +69,7 @@ class Battleship
   def computer_place_ships
     @ships.each do |n|
       coordinates = computer.ship_coordinates(@computer_ship_board, n)
-      place_ship(@computer_ship_board, coordinates)
+      place_ship(@computer_ship_board, coordinates, n)
     end
   end
 
@@ -81,18 +81,18 @@ class Battleship
         coordinates = gets_player_ship_placement_message(n)
         valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
       end
-      place_ship(@player_ship_board, valid_coordinates)
+      place_ship(@player_ship_board, valid_coordinates, n)
     end
   end
 
-  def place_ship(board, coordinates)
-    board.ship(coordinates)
+  def place_ship(board, coordinates, n)
+    board.ship(coordinates, n)
   end
 
   def game_sequence
     shots = 0
     start_time = Time.now
-    until @player_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero? || @computer_ship_board.board.reduce(0) { |acc, line| acc += line.count { |space| space == :ship } }.zero?
+    until @player_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero? || @computer_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
       player_shoot
       computer_shoot
       shots += 1
@@ -106,6 +106,7 @@ class Battleship
     player_shot = player_shot_message
     valid_shot = player.convert_to_shot_coordinates(player_shot)
     until valid_shot
+      invalid_shot_message
       player_shot = player_shot_message
       valid_shot = player.convert_to_shot_coordinates(player_shot)
     end
@@ -129,6 +130,7 @@ class Battleship
     end
     computer_board_banner_message
     @player_ship_board.print_board(@board_printer)
+    new_line_message
   end
 
   def end_game(shots, start_time)

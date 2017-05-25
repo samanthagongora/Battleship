@@ -15,7 +15,7 @@ class BoardPrinter
 
   def line_converter(line)
     line.map do |el|
-      el = if el == :empty || el == :ship
+      el = if el == :empty || el.class == Fixnum
              '   .'
            elsif el == :hit
              '   H'
