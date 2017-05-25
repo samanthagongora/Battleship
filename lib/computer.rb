@@ -75,6 +75,6 @@ class Computer
   end
 
   def random_coordinates(board)
-    random_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
+    [rand(0..board.size - 1), rand(0..board.size - 1)]
   end
 end

@@ -6,15 +6,15 @@ require 'pry'
 class ComputerTest < Minitest::Test
   def test_random_ship_coordinates_returns_random_ship_coordinates
     player_comp = Computer.new
-    new_board_4 = Board.new(4)
+    newboard4 = Board.new(4)
     new_board_8 = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = player_comp.random_ship_coordinates(new_board_4)
+    coordinates_1 = player_comp.random_ship_coordinates(newboard4)
     coordinates_2 = player_comp.random_ship_coordinates(new_board_8)
     coordinates_3 = player_comp.random_ship_coordinates(new_board_12)
 
-    assert new_board_4.contains?(coordinates_1)
+    assert newboard4.contains?(coordinates_1)
     assert new_board_8.contains?(coordinates_2)
     assert new_board_12.contains?(coordinates_3)
     assert_equal 2, coordinates_1.length
@@ -24,18 +24,18 @@ class ComputerTest < Minitest::Test
 
   def test_end_coordinates_returns_valid_coordinates
     player_comp = Computer.new
-    new_board_4 = Board.new(4)
+    newboard4 = Board.new(4)
     new_board_8 = Board.new(8)
     new_board_12 = Board.new(12)
 
-    coordinates_1 = player_comp.end_coordinates([[1, 2]], 2, new_board_4)
+    coordinates_1 = player_comp.end_coordinates([[1, 2]], 2, newboard4)
     coordinates_2 = player_comp.end_coordinates([[4, 5]], 2, new_board_8)
     coordinates_3 = player_comp.end_coordinates([[10, 9]], 2, new_board_12)
 
     assert player_comp.subsequent_choices(1, 2, 1).include? coordinates_1
     assert player_comp.subsequent_choices(4, 5, 1).include? coordinates_2
     assert player_comp.subsequent_choices(10, 9, 1).include? coordinates_3
-    assert new_board_4.contains?(coordinates_1)
+    assert newboard4.contains?(coordinates_1)
     assert new_board_8.contains?(coordinates_2)
     assert new_board_12.contains?(coordinates_3)
     assert_equal 2, coordinates_1.length
@@ -45,7 +45,7 @@ class ComputerTest < Minitest::Test
 
   def test_middle_coordinates_returns_valid_coordinates
     player_comp = Computer.new
-    new_board_4 = Board.new(4)
+    newboard4 = Board.new(4)
     new_board_8 = Board.new(8)
     new_board_12 = Board.new(12)
 
@@ -62,7 +62,7 @@ class ComputerTest < Minitest::Test
     assert_equal [2, 2], coordinates_4
     assert_equal [10, 8], coordinates_5
     assert_equal [5, 2], coordinates_6
-    assert new_board_4.contains?(coordinates_1)
+    assert newboard4.contains?(coordinates_1)
     assert new_board_8.contains?(coordinates_2)
     assert new_board_12.contains?(coordinates_3)
     assert new_board_8.contains?(coordinates_4)

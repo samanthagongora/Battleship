@@ -1,4 +1,5 @@
 require './lib/board'
+require 'pry'
 
 class Player
   def initialize
@@ -17,21 +18,24 @@ class Player
     @shots = []
   end
 
-  def convert_to_ship_coordinates(input, ship_length)
-    return false if strip_split_and_validate(input) == false
-    valid_input = strip_split_and_validate(input)
+  def convert_to_ship_coordinates(board, input, ship_length)
+    return false if strip_and_format(input) == false
+    valid_input = strip_and_format(input)
     coordinates = []
 
     valid_input.each_with_index do |el, i|
       coordinates << [@convertor[valid_input[i - 1]], (el.to_i - 1)] if i.odd?
     end
-    return coordinates if coordinates.flatten.length == ship_length * 2
+
+    if coordinates.flatten.length == ship_length * 2
+      return coordinates if valid_ship_coordinates?(board, coordinates)
+    end
     false
   end
 
   def convert_to_shot_coordinates(input)
-    return false if strip_split_and_validate(input) == false
-    valid_input = strip_split_and_validate(input)
+    return false if strip_and_format(input) == false
+    valid_input = strip_and_format(input)
     coordinates = []
 
     valid_input.each_with_index do |el, i|
@@ -46,7 +50,7 @@ class Player
     false
   end
 
-  def strip_split_and_validate(input)
+  def strip_and_format(input)
     alpha = @convertor.keys
     stripped_downcased = input.delete(' ').downcase
     units = stripped_downcased.split('')
@@ -55,38 +59,46 @@ class Player
     units.each_with_index do |unit, i|
       if i.even?
         return false unless alpha.include?(unit)
-      else
-        return false if unit.to_i.zero?
+      elsif unit.to_i.zero?
+        return false
       end
     end
     units
   end
 
-  # def valid?(board, coordinates)
-  #   coordinates.each do |pair|
-  #     if !board.contains?(coordinates)
-  #       return 'That location does not exist'
-  #     elsif !board.empty?(coordinates)
-  #       return 'Your move conflicts with another ship'
-  #     end
-  #   end
-  # end
+  def valid_ship_coordinates?(board, coordinates)
+    return false unless sequential?(coordinates)
+    coordinates.each do |c|
+      return false if !board.contains?(c) || !board.empty?(c)
+    end
+    true
+  end
 
-  # def sequential?(coordinates)
-  #   comparison = {}
-  #   coordinates.each do |pair|
-  #     if comparison[pair[0]].nil?
-  #       comparison[pair[0]] = []
-  #     end
-  #     comparison[pair[0]] << pair[1]
-  #   end
-  #
-  #   if comparison.keys.length == 1
-  #     values = comparison.values.sort
-  #     return values.all?.with_index { |v, i| v + 1 == values[i + 1] }
-  #   else
-  #     keys = comparison.keys.sort
-  #     return keys.all?.with_index { |k, i| k + 1 == keys[i + 1]}
-  #   end
-  # end
+  def sequential?(coordinates)
+    comparison = compile_coordinates(coordinates)
+    flattened_values = comparison.values.flatten
+    flattened_keys = comparison.keys.flatten
+
+    if comparison.keys.length == 1
+      max_value = flattened_values.max
+      min_value = flattened_values.min
+      return true if flattened_values.sort == (min_value..max_value).to_a
+    elsif flattened_values.uniq.length == 1
+      sorted_keys = flattened_keys.sort
+      max_key = flattened_keys.max
+      min_key = flattened_keys.min
+      # binding.pry
+      return true if sorted_keys == (min_key..max_key).to_a
+    end
+    false
+  end
+
+  def compile_coordinates(coordinates)
+    comparison = {}
+    coordinates.each do |pair|
+      comparison[pair[0]] = [] if comparison[pair[0]].nil?
+      comparison[pair[0]] << pair[1]
+    end
+    comparison
+  end
 end

@@ -2,6 +2,7 @@ require './lib/board'
 require './lib/player'
 require './lib/computer'
 require './lib/messages'
+require 'pry'
 
 class Battleship
   include Messages
@@ -78,13 +79,14 @@ class Battleship
   def player_place_ships
     @ships.each do |n|
       coordinates = gets_player_ship_placement_message(n)
-      valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
-      until valid_coordinates
+      valid_location = player.convert_to_ship_coordinates(@player_ship_board, coordinates, n)
+      until valid_location
         invalid_ship_placement_message
         coordinates = gets_player_ship_placement_message(n)
-        valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
+        valid_location = player.convert_to_ship_coordinates(@player_ship_board, coordinates, n)
       end
-      place_ship(@player_ship_board, valid_coordinates, n)
+      # binding.pry
+      place_ship(@player_ship_board, valid_location, n)
     end
   end
 
@@ -102,6 +104,14 @@ class Battleship
       shots += 1
     end
     end_game(shots, start_time)
+  end
+
+  def all_player_ships_sunk
+    @player_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
+  end
+
+  def all_computer_ships_sunk
+    @computer_ship_board.board.flatten.count { |s| s.class == Fixnum }.zero?
   end
 
   def player_shoot
@@ -158,14 +168,6 @@ class Battleship
     end
     elapsed_time = (Time.now - start_time).round
     elapsed_time_message(elapsed_time)
-  end
-
-  def all_player_ships_sunk
-    @player_ship_board.board.flatten.count { |s| s.class == Integer }.zero?
-  end
-
-  def all_computer_ships_sunk
-    @computer_ship_board.board.flatten.count { |s| s.class == Integer }.zero?
   end
 end
 
