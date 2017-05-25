@@ -19,14 +19,14 @@ class Board
   end
 
   def empty?(coordinates)
-    row = coordinates[0]
-    column = coordinates[1]
+    row = coordinates.flatten[0]
+    column = coordinates.flatten[1]
     @board[row][column] == :empty
   end
 
-  def hit_or_miss(_board, coordinates)
-    row = coordinates[0]
-    column = coordinates[1]
+  def hit_or_miss(coordinates)
+    row = coordinates.flatten[0]
+    column = coordinates.flatten[1]
     if empty?(coordinates)
       @board[row][column] = :miss
       return :miss
@@ -40,6 +40,7 @@ class Board
     coordinates.each do |pair|
       row = pair[0]
       column = pair[1]
+      # binding.pry
       @board[row][column] = :ship
     end
   end

@@ -15,17 +15,52 @@ class Player
                    'j' => 9,
                    'k' => 10,
                    'l' => 11 }
+    @shots = []
   end
 
-  def convert_to_coordinates(input)
-    stripped_downcased = input.delete(' ').downcase
-    units = stripped_downcased.split('')
+  def convert_to_ship_coordinates(input, ship_length)
+    return false if strip_split_and_validate(input) == false
+    valid_input = strip_split_and_validate(input)
     coordinates = []
 
-    units.each_with_index do |el, i|
-      coordinates << [@convertor[units[i - 1]], (el.to_i - 1)] if i.odd?
+    valid_input.each_with_index do |el, i|
+      coordinates << [@convertor[valid_input[i - 1]], (el.to_i - 1)] if i.odd?
     end
-    coordinates
+    return coordinates if coordinates.flatten.length == ship_length * 2
+    false
+  end
+
+  def convert_to_shot_coordinates(input)
+    return false if strip_split_and_validate(input) == false
+    valid_input = strip_split_and_validate(input)
+    coordinates = []
+
+    valid_input.each_with_index do |el, i|
+      coordinates << [@convertor[valid_input[i - 1]], (el.to_i - 1)] if i.odd?
+    end
+    return false if @shots.include?(coordinates)
+
+    if coordinates.flatten.length == 2
+      @shots << coordinates
+      return coordinates
+    end
+    false
+  end
+
+  def strip_split_and_validate(input)
+    alpha = @convertor.keys
+    stripped_downcased = input.delete(' ').downcase
+    units = stripped_downcased.split('')
+    return false if units.empty?
+
+    units.each_with_index do |unit, i|
+      if i.even?
+        return false if !alpha.include?(unit)
+      else
+        return false if unit.to_i.zero?
+      end
+    end
+    units
   end
 
   # def valid?(board, coordinates)

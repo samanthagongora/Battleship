@@ -76,7 +76,11 @@ class Battleship
   def player_place_ships
     @ships.each do |n|
       coordinates = gets_player_ship_placement_message(n)
-      valid_coordinates = player.convert_to_coordinates(coordinates)
+      valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
+      until valid_coordinates
+        coordinates = gets_player_ship_placement_message(n)
+        valid_coordinates = player.convert_to_ship_coordinates(coordinates, n)
+      end
       place_ship(@player_ship_board, valid_coordinates)
     end
   end
@@ -97,10 +101,15 @@ class Battleship
   end
 
   def player_shoot
+    player_board_banner_message
     @computer_ship_board.print_board(@board_printer)
     player_shot = player_shot_message
-    valid_shot = player.convert_to_coordinates(player_shot).flatten
-    result = @computer_ship_board.hit_or_miss(computer_ship_board, valid_shot)
+    valid_shot = player.convert_to_shot_coordinates(player_shot)
+    until valid_shot
+      player_shot = player_shot_message
+      valid_shot = player.convert_to_shot_coordinates(player_shot)
+    end
+    result = @computer_ship_board.hit_or_miss(valid_shot)
     if result == :miss
       player_miss_message
     else
@@ -112,12 +121,13 @@ class Battleship
 
   def computer_shoot
     computer_shot = computer.random_coordinates(player_ship_board)
-    result = @player_ship_board.hit_or_miss(player_ship_board, computer_shot)
+    result = @player_ship_board.hit_or_miss(computer_shot)
     if result == :miss
       computer_miss_message
     else
       computer_hit_message
     end
+    computer_board_banner_message
     @player_ship_board.print_board(@board_printer)
   end
 

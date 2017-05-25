@@ -26,6 +26,14 @@ module Messages
     gets.chomp
   end
 
+  def player_board_banner_message
+    puts 'Your battlefield:'
+  end
+
+  def computer_board_banner_message
+    puts "Computer's battlefield:"
+  end
+  
   def player_shot_message
     puts 'Please enter a coordinate to fire ze missle'
     gets.chomp
