@@ -27,12 +27,14 @@ class Board
   def hit_or_miss(coordinates)
     row = coordinates.flatten[0]
     column = coordinates.flatten[1]
+    ship_size = @board[row][column]
     if empty?(coordinates)
       @board[row][column] = :miss
       return :miss
     else
       @board[row][column] = :hit
-      return :hit
+      return :hit if @board.flatten.include?(ship_size)
+      ship_size
     end
   end
 

@@ -114,8 +114,10 @@ class Battleship
     result = @computer_ship_board.hit_or_miss(valid_shot)
     if result == :miss
       player_miss_message
-    else
+    elsif result == :hit
       player_hit_message
+    else
+      player_sunk_message(result)
     end
     @computer_ship_board.print_board(@board_printer)
     continue_message
@@ -126,8 +128,10 @@ class Battleship
     result = @player_ship_board.hit_or_miss(computer_shot)
     if result == :miss
       computer_miss_message
-    else
+    elsif result == :hit
       computer_hit_message
+    else
+      computer_sunk_message(result)
     end
     computer_board_banner_message
     @player_ship_board.print_board(@board_printer)

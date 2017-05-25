@@ -15,11 +15,11 @@ module Messages
   end
 
   def computer_ship_placement_message
-    puts "I have laid out my ships on the grid.
+    puts 'I have laid out my ships on the grid.
    You now need to layout your two ships.
    The first is two units long and the
    second is three units long.
-   The grid has A1 at the top left and D4 at the bottom right."
+   The grid has A1 at the top left and D4 at the bottom right.'
   end
 
   def gets_player_ship_placement_message(ship_length)
@@ -60,6 +60,10 @@ module Messages
     puts 'You missed!'
   end
 
+  def player_sunk_message(ship_size)
+    puts "You sunk the enemy's #{ship_size}-unit ship!"
+  end
+
   def continue_message
     puts "Press 'enter' to continue."
     gets
@@ -72,6 +76,10 @@ module Messages
   def computer_hit_message
     puts 'Your ship was hit!'
   end
+
+  def computer_sunk_message
+    puts "The enemy sunk your #{ship_size}-unit ship!"
+  end 
 
   def player_win_message(shot_count)
     puts "Congratulations, you won!\nIt took you #{shot_count} shots to sink my battleships."
