@@ -1,6 +1,10 @@
 module Messages
   def welcome_message
-    puts "Welcome to BATTLESHIP\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
+    output =
+    <<~OUTPUT
+    Welcome to BATTLESHIP\n
+    Would you like to (p)lay, read the (i)nstructions, or (q)uit?
+    OUTPUT
     gets.chomp
   end
 
@@ -10,16 +14,25 @@ module Messages
   end
 
   def instructions_message
-    puts "The object of the game is to be the first to sink your opponents ships. First, you will place your ships on the battlefield. Players will take turns firing missles by calling coordinates.\n Press enter to return to the home screen."
+    output =
+    <<~OUTPUT
+    The object of the game is to be the first to sink your opponents ships.
+    First, you will place your ships on the battlefield.
+    Players will take turns firing missles by calling coordinates.\n
+    Press enter to return to the home screen.
+    OUTPUT
+    puts output
     gets.chomp
   end
 
   def computer_ship_placement_message
-    puts 'I have laid out my ships on the grid.
-   You now need to layout your two ships.
-   The first is two units long and the
-   second is three units long.
-   The grid has A1 at the top left and D4 at the bottom right.'
+    output =
+    <<~OUTPUT
+    I have laid out my ships on the grid.
+    You now need to layout your ships.
+    Here is an empty battlefield for guidance:\n
+    OUTPUT
+    puts output
   end
 
   def gets_player_ship_placement_message(ship_length)
@@ -82,11 +95,21 @@ module Messages
   end
 
   def player_win_message(shot_count)
-    puts "Congratulations, you won!\nIt took you #{shot_count} shots to sink my battleships."
+    output =
+    <<~OUTPUT
+    Congratulations, you won!\n
+    It took you #{shot_count} shots to sink my battleships.
+    OUTPUT
+    puts output
   end
 
   def computer_win_message(shot_count)
-    puts "Better luck next time, nerd. It took me #{shot_count} shots to sink your battleships."
+    output =
+    <<~OUTPUT
+    Better luck next time, nerd.
+    It took me #{shot_count} shots to sink your battleships.
+    OUTPUT
+    puts output
   end
 
   def elapsed_time_message(elapsed_time)
