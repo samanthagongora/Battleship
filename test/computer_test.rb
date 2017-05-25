@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/computer'
-require 'pry'
+
 
 class ComputerTest < Minitest::Test
   def test_random_ship_coordinates_returns_random_ship_coordinates

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/board_printer'
 require './lib/board'
-require 'pry'
+
 
 class BoardPrinterTest < Minitest::Test
   def test_small_board_to_s
@@ -91,7 +91,7 @@ class BoardPrinterTest < Minitest::Test
 
     expected_board = board.chomp
     actual_board = new_printer.formats_board(new_board)
-    # binding.pry
+    #
     assert_equal expected_board, actual_board
   end
 end

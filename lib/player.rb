@@ -1,5 +1,5 @@
 require './lib/board'
-require 'pry'
+
 
 class Player
   def initialize
@@ -87,7 +87,7 @@ class Player
       sorted_keys = flattened_keys.sort
       max_key = flattened_keys.max
       min_key = flattened_keys.min
-      # binding.pry
+      #
       return true if sorted_keys == (min_key..max_key).to_a
     end
     false

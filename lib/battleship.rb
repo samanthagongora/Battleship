@@ -2,7 +2,7 @@ require './lib/board'
 require './lib/player'
 require './lib/computer'
 require './lib/messages'
-require 'pry'
+
 
 class Battleship
   include Messages
@@ -85,7 +85,7 @@ class Battleship
         coordinates = gets_player_ship_placement_message(n)
         valid_location = player.convert_to_ship_coordinates(@player_ship_board, coordinates, n)
       end
-      # binding.pry
+      # 
       place_ship(@player_ship_board, valid_location, n)
     end
   end

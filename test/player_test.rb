@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/player'
 require './lib/board'
-require 'pry'
 
 class PlayerTest < Minitest::Test
   def test_convert_to_ship_coordinates_returns_false_for_invalid_input
@@ -20,7 +19,7 @@ class PlayerTest < Minitest::Test
     refute actual_1
     refute actual_2
     refute actual_3
-    # binding.pry
+    #
     refute actual_4
     refute actual_5
     refute actual_6
