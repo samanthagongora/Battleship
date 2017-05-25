@@ -114,6 +114,7 @@ class Battleship
       player_hit_message
     end
     @computer_ship_board.print_board(@board_printer)
+    continue_message
   end
 
   def computer_shoot
@@ -133,7 +134,7 @@ class Battleship
     else
       player_win_message(shots)
     end
-    elapsed_time = Time.now - start_time
+    elapsed_time = (Time.now - start_time).round
     elapsed_time_message(elapsed_time)
   end
 end

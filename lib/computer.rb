@@ -63,11 +63,13 @@ class Computer
     end
   end
 
+
+
   def valid_ship_coordinate?(board, coordinates)
     board.contains?(coordinates) && board.empty?(coordinates)
   end
 
   def valid_shot_coordinate?(board, coordinates)
-    board.contains?(coordinates)
+   #todo: make sure not previous shot
   end
 end

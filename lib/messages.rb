@@ -39,6 +39,11 @@ module Messages
     puts "You missed!"
   end
 
+  def continue_message
+    puts "Press 'enter' to continue."
+    gets
+  end
+
   def computer_miss_message
     puts "Your ships are safe...for now."
   end
@@ -56,6 +61,6 @@ module Messages
   end
 
   def elapsed_time_message(elapsed_time)
-    puts "Total elapsed time: #{elapsed_time}"
-  end 
+    puts "Total elapsed time: #{elapsed_time} seconds"
+  end
 end
