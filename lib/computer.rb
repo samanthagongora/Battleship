@@ -17,15 +17,8 @@ class Computer
         break
       end
     end
-    if coordinates.length != ship_length
-      ship_coordinates(board, ship_length)
-    else
-      return coordinates
-    end
-  end
-
-  def random_coordinates(board)
-    random_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
+    ship_coordinates(board, ship_length) if coordinates.length != ship_length
+    coordinates
   end
 
   def random_ship_coordinates(board)
@@ -79,5 +72,9 @@ class Computer
   def valid_shot_coordinate?(board, coordinates)
     return false if @shots.include?(coordinates)
     @shots << coordinates
+  end
+
+  def random_coordinates(board)
+    random_coordinates = [rand(0..board.size - 1), rand(0..board.size - 1)]
   end
 end
